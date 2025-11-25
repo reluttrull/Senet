@@ -31,9 +31,11 @@ namespace SenetServer.Controllers
 
         [HttpGet]
         [Route("requestjoingame")]
-        public async Task<IActionResult> RequestJoinGame([FromQuery] string? userName) // eventually generate username randomly in server
+        public async Task<IActionResult> RequestJoinGame()
         {
             var userId = UserIdentity.GetOrCreateUserId(HttpContext);
+
+            string userName = UsernameGenerator.GetNewUsername();
 
             var request = new MatchRequest
             {
@@ -43,8 +45,9 @@ namespace SenetServer.Controllers
             };
 
             await _matchmakingQueue.EnqueueAsync(request);
-            _logger.LogInformation("Enqueued match request for user {UserId}", userId);
+            _logger.LogInformation("Enqueued match request for user {UserId}: {UserName}", userId, userName);
 
+            // return userId for SignalR notifications and userName to display
             return Ok(new { UserId = userId, UserName = userName });
         }
     }

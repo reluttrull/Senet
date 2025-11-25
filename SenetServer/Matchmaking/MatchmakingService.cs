@@ -26,10 +26,10 @@ namespace SenetServer.Matchmaking
                 try
                 {
                     var first = await _matchmakingQueue.DequeueAsync(stoppingToken);
-                    _logger.LogInformation("Dequeued first match request for user {UserId} (queued at {TimeAdded})", first.UserId, first.TimeAdded);
+                    _logger.LogInformation("Dequeued first match request for user {UserId}:{UserName} (queued at {TimeAdded})", first.UserId, first.UserName, first.TimeAdded);
 
                     var second = await _matchmakingQueue.DequeueAsync(stoppingToken);
-                    _logger.LogInformation("Dequeued second match request for user {UserId} (queued at {TimeAdded})", second.UserId, second.TimeAdded);
+                    _logger.LogInformation("Dequeued second match request for user {UserId}:{UserName} (queued at {TimeAdded})", second.UserId, second.UserName, second.TimeAdded);
 
                     await ProcessMatchmakingPairAsync(first, second, stoppingToken);
                 }
@@ -46,7 +46,7 @@ namespace SenetServer.Matchmaking
 
         private Task ProcessMatchmakingPairAsync(MatchRequest a, MatchRequest b, CancellationToken stoppingToken)
         {
-            _logger.LogInformation("Paired users {A} and {B}", a.UserId, b.UserId);
+            _logger.LogInformation("Paired users {A}:{AName} and {B}:{BName}", a.UserId, a.UserName, b.UserId, b.UserName);
 
             return Task.CompletedTask;
         }

@@ -14,12 +14,12 @@
         {
             if (isPlayerWhite) OpponentName = startingGameState.PlayerBlack.UserName;
             else OpponentName = startingGameState.PlayerWhite.UserName;
-            WhitePositions = startingGameState.WhitePositions;
-            BlackPositions = startingGameState.BlackPositions;
-            Sticks = startingGameState.Sticks;
-            SticksValue = startingGameState.GetSticksValue();
+            WhitePositions = startingGameState.BoardState.WhitePositions;
+            BlackPositions = startingGameState.BoardState.BlackPositions;
+            Sticks = startingGameState.BoardState.Sticks;
+            SticksValue = startingGameState.BoardState.SticksValue;
             IsPlayerWhite = isPlayerWhite;
-            IsPlayerTurn = isPlayerWhite ? startingGameState.IsWhiteTurn : !startingGameState.IsWhiteTurn;
+            IsPlayerTurn = isPlayerWhite ? startingGameState.BoardState.IsWhiteTurn : !startingGameState.BoardState.IsWhiteTurn;
         }
     }
 }

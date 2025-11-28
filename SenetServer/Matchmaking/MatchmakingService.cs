@@ -78,6 +78,8 @@ namespace SenetServer.Matchmaking
                 await Task.Delay(pollInterval, stoppingToken);
             }
 
+            // todo: if only one was connected, add that user back into the queue
+
             if (!_connectionManager.HasConnections(a.UserId) || !_connectionManager.HasConnections(b.UserId))
             {
                 _logger.LogWarning("One or both users are not connected for users {A} and {B}. Sending only to connected users if any.", a.UserId, b.UserId);
@@ -96,6 +98,8 @@ namespace SenetServer.Matchmaking
                 {
                     await _hubContext.Clients.Users(connected)
                         .SendAsync("MatchFound", matchResponse, cancellationToken: stoppingToken);
+                    await _hubContext.Clients.Users(connected)
+                        .SendAsync("BoardUpdated", gameState.BoardState, cancellationToken: stoppingToken);
 
                     _logger.LogInformation("Sent MatchResponse to connected subset of users {Users}.", string.Join(",", connected));
                 }
@@ -117,6 +121,8 @@ namespace SenetServer.Matchmaking
                 var users = new[] { a.UserId, b.UserId };
                 await _hubContext.Clients.Users(users)
                     .SendAsync("MatchFound", matchResponse, cancellationToken: stoppingToken);
+                await _hubContext.Clients.Users(users)
+                    .SendAsync("BoardUpdated", gameState.BoardState, cancellationToken: stoppingToken);
 
                 _logger.LogInformation("Sent MatchResponse to users {A} and {B}.", a.UserId, b.UserId);
             }

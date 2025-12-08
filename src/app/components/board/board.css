@@ -22,3 +22,19 @@
   align-items: center;
   background-color: rgb(181, 137, 87);
 }
+
+.piece {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transform: scale(2);
+}
+
+.white {
+  color: white;
+}
+
+.black {
+  color: black;
+}

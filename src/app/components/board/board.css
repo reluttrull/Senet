@@ -10,6 +10,7 @@
     justify-content: center;
     width: 80vw;
     max-width: 700px;
+    background-color: rgb(181, 137, 87);
     border: 3px solid rgb(88, 60, 28);
 }
 
@@ -20,7 +21,43 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(181, 137, 87);
+}
+
+.ankh-house {
+  background-image: url('/images/ankh.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.beauty-house {
+  background-image: url('/images/lute.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.waters-house {
+  background-image: url('/images/waves.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.three-truths-house {
+  background-image: url('/images/romanIII.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.re-atum-house {
+  background-image: url('/images/romanII.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.horus-house {
+  background-image: url('/images/romanI.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 .piece {

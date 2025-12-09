@@ -41,6 +41,12 @@ namespace SenetServer.Model
             int index = (IsWhiteTurn ? WhitePositions : BlackPositions).FindIndex(pawn => pawn == position);
             if (index < 0) return false; // could not find pawn
             (IsWhiteTurn ? WhitePositions : BlackPositions)[index] = position + SticksValue;
+            // swap?
+            int swapIndex = (IsWhiteTurn ? BlackPositions : WhitePositions).FindIndex(pawn => pawn == position + SticksValue && pawn < 30);
+            if (swapIndex >= 0)
+            {
+                (IsWhiteTurn ? BlackPositions : WhitePositions)[swapIndex] = position;
+            }
             return true;
         }
 

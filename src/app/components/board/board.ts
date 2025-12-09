@@ -1,4 +1,5 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { ApiService } from '../../services/api-service';
 
 
 @Component({
@@ -13,7 +14,13 @@ export class Board {
   whitePawns = input.required<number[]>();
   blackPawns = input.required<number[]>();
 
+  apiService = inject(ApiService);
+
   movePawn(indexToMove:number) {
     console.log(`ready to move pawn at index ${indexToMove} by ${this.sticksValue()} spaces.`);
+    this.apiService.apiMovePawn(indexToMove)
+      .subscribe((result) => {
+        
+      })
   }
 }

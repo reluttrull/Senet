@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { UserInfo } from '../model/user-info';
 
 @Injectable({
@@ -16,8 +16,16 @@ export class ApiService {
   }
 
   apiRollSticks() {
-    console.log('sdfsjdfksj');
     return this.http.get(`${this.serverUrl}/game/rollsticks`, {
+      withCredentials: true
+    })
+  }
+
+  apiMovePawn(startPosition: number) {
+    let params = new HttpParams();
+    params = params.set('startPosition', startPosition);
+    return this.http.get(`${this.serverUrl}/game/movepawn`, {
+      params: params,
       withCredentials: true
     })
   }

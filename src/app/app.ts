@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import * as signalR from '@microsoft/signalr';
 import { GameInfoBlock } from './components/game-info-block/game-info-block';
 import { Board } from './components/board/board';
+import { Score } from './components/score/score';
 import { ApiService } from './services/api-service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, GameInfoBlock, Board],
+  imports: [RouterOutlet, GameInfoBlock, Board, Score],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

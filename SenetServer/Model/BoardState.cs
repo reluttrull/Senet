@@ -20,7 +20,7 @@ namespace SenetServer.Model
         public void SetCanMove()
         {
             MovablePositions = (IsWhiteTurn ? WhitePositions : BlackPositions)
-                .Where(pawn => PawnCanMove(pawn))
+                .Where(pawn => PawnCanMove(pawn) && pawn < 30)
                 .ToList();
         }
         public void RollSticks()

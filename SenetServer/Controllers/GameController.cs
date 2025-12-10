@@ -87,5 +87,23 @@ namespace SenetServer.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        [Route("skipturn")]
+        public async Task<IActionResult> SkipTurn()
+        {
+            var userId = UserIdentity.GetOrCreateUserId(HttpContext);
+            if (!_memoryCache.TryGetValue(userId, out GameState? gameState)) return NotFound("Game not found.");
+            if (gameState is null) return NotFound("Game missing data.");
+
+            bool nextTurnIsWhiteTurn = !gameState.BoardState.IsWhiteTurn;
+            gameState.BoardState.RollSticks();
+            gameState.BoardState.IsWhiteTurn = nextTurnIsWhiteTurn;
+
+            await _hubContext.Clients.Users([gameState.PlayerWhite.UserId, gameState.PlayerBlack.UserId])
+                .SendAsync("BoardUpdated", gameState.BoardState);
+
+            return Ok();
+        }
     }
 }

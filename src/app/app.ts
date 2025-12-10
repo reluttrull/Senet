@@ -44,6 +44,13 @@ export class App {
         
       })
   }
+
+  skipTurn() {
+    this.apiService.apiSkipTurn()
+      .subscribe((result) => {
+        
+      })
+  }
   
   async connectSignalR(id: string) {
     if (!id) {

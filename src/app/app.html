@@ -45,6 +45,9 @@
     <app-game-info-block [username]="username()" [opponentUsername]="opponentUsername()" />
     @if (gameStarted()) {
       <app-board [isPlayerTurn]="isPlayerWhite() == isWhiteTurn()" [sticksValue]="sticksValue()" [whitePawns]="whitePawns()" [blackPawns]="blackPawns()" [movablePawns]="movablePawns()" />
+      @if (isPlayerWhite() == isWhiteTurn() && movablePawns().length == 0) {
+        <button (click)="skipTurn()">Skip turn</button>
+      }
       <button (click)="rollSticks()">Roll</button>
       <div>{{ sticksValue() }}</div>
       <app-score [whitePawns]="whitePawns()" [blackPawns]="blackPawns()" />

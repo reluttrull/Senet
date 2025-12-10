@@ -21,6 +21,12 @@ export class ApiService {
     })
   }
 
+  apiSkipTurn() {
+    return this.http.get(`${this.serverUrl}/game/skipturn`, {
+      withCredentials: true
+    })
+  }
+
   apiMovePawn(startPosition: number) {
     let params = new HttpParams();
     params = params.set('startPosition', startPosition);

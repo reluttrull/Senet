@@ -58,7 +58,7 @@ namespace SenetServer.Model
             int targetLocation = location + SticksValue;
 
             if (IsEnemyGuarded(differentColor, targetLocation)) return false; // can't swap guarded pawns
-            if (safeSquares.Contains(targetLocation)) return false; // can't capture on safe squares
+            if (differentColor.Contains(targetLocation) && safeSquares.Contains(targetLocation)) return false; // can't capture on safe squares
             if (IsEnemyBlockaded(differentColor, targetLocation)) return false; // can't pass blockade
             if (sameColor.Contains(targetLocation) && targetLocation < 30) return false; // can't oust own pawn
             if (location == 25 || (location == 29 && targetLocation > 29)) return true; // home free from 25
@@ -79,7 +79,6 @@ namespace SenetServer.Model
 
         private bool IsEnemyBlockaded(List<int> enemyPieces, int targetIndex)
         {
-            if (!enemyPieces.Contains(targetIndex)) return false;
             // from start to end index, blockade can either look like:
             //  sxxx_e  or s_xxxe
             if (SticksValue > 3

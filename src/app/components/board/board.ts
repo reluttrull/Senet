@@ -19,6 +19,10 @@ export class Board {
   apiService = inject(ApiService);
 
   movePawn(indexToMove:number) {
+    if (!this.isPlayerTurn() || !this.movablePawns().includes(indexToMove)) {
+      console.log(`can't move pawn at index ${indexToMove}.`);
+      return;
+    }
     console.log(`ready to move pawn at index ${indexToMove} by ${this.sticksValue()} spaces.`);
     this.apiService.apiMovePawn(indexToMove)
       .subscribe((result) => {

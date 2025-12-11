@@ -34,7 +34,7 @@ namespace SenetServer.Controllers
         }
 
         [HttpGet]
-        [Route("requestjoingame")]
+        [Route("games")]
         public async Task<IActionResult> RequestJoinGame()
         {
             var userId = UserIdentity.GetOrCreateUserId(HttpContext);
@@ -44,22 +44,23 @@ namespace SenetServer.Controllers
             var request = new MatchRequest
             {
                 UserId = userId,
-                UserName = userName ?? $"Anonymous {new Random().Next(10000)}",
+                UserName = userName ?? $"Anonymous{new Random().Next(10000)}",
                 TimeAdded = DateTime.UtcNow
             };
 
             await _matchmakingQueue.EnqueueAsync(request);
             _logger.LogInformation("Enqueued match request for user {UserId}: {UserName}", userId, userName);
 
-            // return userId for SignalR notifications and userName to display
-            return Ok(new { UserId = userId, UserName = userName });
+            // return 202 with userId for SignalR notifications and userName for display
+            // meanwhile, background service still has to process matches in queue
+            return Accepted(new { UserId = userId, UserName = userName });
         }
 
-        [HttpGet]
-        [Route("rollsticks")]
-        public async Task<IActionResult> RollSticks()
+        [HttpPut]
+        [Route("sticks/{userId}")]
+        public async Task<IActionResult> RollSticks(string userId)
         {
-            var userId = UserIdentity.GetOrCreateUserId(HttpContext);
+            //var userId = UserIdentity.GetOrCreateUserId(HttpContext);
             if (!_memoryCache.TryGetValue(userId, out GameState? gameState)) return NotFound("Game not found.");
             if (gameState is null) return NotFound("Game missing data.");
 
@@ -70,11 +71,11 @@ namespace SenetServer.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        [Route("movepawn")]
-        public async Task<IActionResult> MovePawn([FromQuery]int startPosition)
+        [HttpPut]
+        [Route("pawns/{userId}/{startPosition}")]
+        public async Task<IActionResult> MovePawn(string userId, int startPosition)
         {
-            var userId = UserIdentity.GetOrCreateUserId(HttpContext);
+            //var userId = UserIdentity.GetOrCreateUserId(HttpContext);
             if (!_memoryCache.TryGetValue(userId, out GameState? gameState)) return NotFound("Game not found.");
             if (gameState is null) return NotFound("Game missing data.");
 
@@ -88,11 +89,11 @@ namespace SenetServer.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        [Route("skipturn")]
-        public async Task<IActionResult> SkipTurn()
+        [HttpPut]
+        [Route("turns/{userId}/{isWhiteTurn}")]
+        public async Task<IActionResult> ChangeTurn(string userId, bool isWhiteTurn)
         {
-            var userId = UserIdentity.GetOrCreateUserId(HttpContext);
+            //var userId = UserIdentity.GetOrCreateUserId(HttpContext);
             if (!_memoryCache.TryGetValue(userId, out GameState? gameState)) return NotFound("Game not found.");
             if (gameState is null) return NotFound("Game missing data.");
 

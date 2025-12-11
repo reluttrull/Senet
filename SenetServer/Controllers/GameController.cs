@@ -86,6 +86,21 @@ namespace SenetServer.Controllers
             await _hubContext.Clients.Users([gameState.PlayerWhite.UserId, gameState.PlayerBlack.UserId])
                 .SendAsync("BoardUpdated", gameState.BoardState);
 
+            if (!gameState.BoardState.WhitePositions.Any(p => p < 30))
+            {
+                await _hubContext.Clients.Users([gameState.PlayerWhite.UserId, gameState.PlayerBlack.UserId])
+                    .SendAsync("GameOver", gameState.PlayerWhite);
+                _memoryCache.Remove(gameState.PlayerWhite.UserId);
+                _memoryCache.Remove(gameState.PlayerBlack.UserId);
+            }
+            if (!gameState.BoardState.BlackPositions.Any(p => p < 30))
+            {
+                await _hubContext.Clients.Users([gameState.PlayerWhite.UserId, gameState.PlayerBlack.UserId])
+                    .SendAsync("GameOver", gameState.PlayerBlack);
+                _memoryCache.Remove(gameState.PlayerWhite.UserId);
+                _memoryCache.Remove(gameState.PlayerBlack.UserId);
+            }
+
             return Ok();
         }
 

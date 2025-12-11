@@ -10,4 +10,5 @@ import { CurrentScorePipe } from '../../pipes/current-score-pipe';
 export class Score {
   whitePawns = input.required<number[]>();
   blackPawns = input.required<number[]>();
+  isPlayerWhite = input.required<boolean>();
 }

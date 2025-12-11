@@ -1,56 +1,21 @@
-<style>
-  :host {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1 {
-    font-size: 3.125rem;
-    font-weight: 500;
-    line-height: 100%;
-    letter-spacing: -0.125rem;
-    margin: 0;
-    padding: 50px;
-    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
-  }
-
-  p {
-    margin: 0;
-  }
-
-  main {
-    width: 100%;
-    min-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    box-sizing: inherit;
-    position: relative;
-  }
-</style>
-
 <main class="main">
   <div>
     <h1>{{ title() }}</h1>
     @if (!gameStarted()) {
-      <button (click)="requestJoinGame()">Join Game</button>
+      <div class="join-game-button">
+        <button (click)="requestJoinGame()">Join Game</button>
+      </div>
     }
-    <app-game-info-block [username]="username()" [opponentUsername]="opponentUsername()" />
+    @if (userid().length > 0) {
+      <app-game-info-block [username]="username()" [opponentUsername]="opponentUsername()" />
+    }
     @if (gameStarted()) {
       <app-board [userid]="userid()" [isPlayerTurn]="isPlayerWhite() == isWhiteTurn()" [sticksValue]="sticksValue()" [whitePawns]="whitePawns()" [blackPawns]="blackPawns()" [movablePawns]="movablePawns()" />
       @if (isPlayerWhite() == isWhiteTurn() && movablePawns().length == 0) {
         <button (click)="skipTurn()">Skip turn</button>
       }
-      <button (click)="rollSticks()">Roll</button>
-      <div>{{ sticksValue() }}</div>
-      <app-score [whitePawns]="whitePawns()" [blackPawns]="blackPawns()" />
+      <div [class.player-turn-reminder]="isPlayerWhite() == isWhiteTurn()">{{isPlayerWhite() == isWhiteTurn() ? 'You can' : 'Your opponent can' }} move <strong>{{ sticksValue() }}</strong> squares</div>
+      <app-score [whitePawns]="whitePawns()" [blackPawns]="blackPawns()" [isPlayerWhite]="isPlayerWhite()" />
     }
   </div>
 </main>

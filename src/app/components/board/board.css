@@ -25,37 +25,37 @@
 }
 
 .ankh-house {
-  background-image: url('/images/ankh.png');
+  background-image: url('/senet-client/images/ankh.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 }
 .beauty-house {
-  background-image: url('/images/lute.svg');
+  background-image: url('/senet-client/images/lute.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 }
 .waters-house {
-  background-image: url('/images/waves.png');
+  background-image: url('/senet-client/images/waves.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 }
 .three-truths-house {
-  background-image: url('/images/romanIII.png');
+  background-image: url('/senet-client/images/romanIII.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 }
 .re-atum-house {
-  background-image: url('/images/romanII.png');
+  background-image: url('/senet-client/images/romanII.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 }
 .horus-house {
-  background-image: url('/images/romanI.png');
+  background-image: url('/senet-client/images/romanI.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

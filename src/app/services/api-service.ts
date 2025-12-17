@@ -16,10 +16,16 @@ export class ApiService {
   }
   
   apiRequestJoinSingleplayerGame(userid:string, username:string) {
-    console.log('got here', userid, username);
     return this.http.post(`${utilities.serverUrl}/singleplayer/games`,
       { "userId": userid, "userName": username }, 
       { withCredentials: true })
+  }
+
+  apiQuitGame(userid:string, gametype:string) {
+    console.log('did delete',`${utilities.serverUrl}/${gametype}/game/${userid}`);
+    return this.http.delete(`${utilities.serverUrl}/${gametype}/game/${userid}`, {
+      withCredentials: true
+    })
   }
 
   apiRollSticks(userid:string, gametype:string) {

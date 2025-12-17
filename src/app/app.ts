@@ -54,6 +54,13 @@ export class App {
       })
   }
 
+  quitGame() {
+    this.apiService.apiQuitGame(this.userid(), utilities.getPath(this.isMultiplayer()))
+      .subscribe(() => {
+        
+      });
+  }
+
   rollSticks() {
     this.apiService.apiRollSticks(this.userid(), utilities.getPath(this.isMultiplayer()))
       .subscribe((result) => {

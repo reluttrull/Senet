@@ -21,6 +21,9 @@
       <app-game-info-block [username]="username()" [opponentUsername]="opponentUsername()" />
     }
     @if (gameStarted && !gameOver) {
+      <div class="quit-game-button">
+        <button matButton tonal (click)="quitGame()">Quit Game</button>
+      </div>
       <app-board [userid]="userid()" [isPlayerTurn]="isPlayerWhite() == isWhiteTurn()" [sticksValue]="sticksValue()" [whitePawns]="whitePawns()" [blackPawns]="blackPawns()" [movablePawns]="movablePawns()" [isMultiplayer]="isMultiplayer()" />
       @if (isPlayerWhite() == isWhiteTurn() && movablePawns().length == 0) {
         <button (click)="skipTurn()">Skip turn</button>

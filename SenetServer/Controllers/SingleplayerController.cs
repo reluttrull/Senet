@@ -139,5 +139,20 @@ namespace SenetServer.Controllers
 
             return Ok();
         }
+
+        [HttpDelete]
+        [Route("game/{userId}")]
+        public async Task<IActionResult> QuitGame(string userId)
+        {
+            if (!_memoryCache.TryGetValue(userId, out GameState? gameState)) return NotFound("Game not found.");
+            if (gameState is null) return NotFound("Game missing data.");
+
+            _logger.LogInformation("User {userId} quitting game.", userId);
+            await _hubContext.Clients.User(userId)
+                .SendAsync("GameOver", gameState.PlayerWhite.UserId == userId ? gameState.PlayerBlack : gameState.PlayerWhite);
+            _memoryCache.Remove(userId);
+
+            return Ok();
+        }
     }
 }

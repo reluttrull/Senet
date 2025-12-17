@@ -14,7 +14,6 @@ import { utilities } from './shared/utilities';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('Senet Client');
   public gameStarted = false;
   public gameOver = false;
   public userid = signal('');

@@ -11,8 +11,8 @@
     justify-content: center;
     width: 80vw;
     max-width: 700px;
-    background-color: rgb(181, 137, 87);
     border: 3px solid rgb(88, 60, 28);
+  background-color: rgb(181, 137, 87);
 }
 
 .square {
@@ -62,11 +62,12 @@
 }
 
 .piece {
+  font-size: clamp(0.8rem, 6vw, 3rem);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  transform: scale(2);
+  
 }
 
 .movable {

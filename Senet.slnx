@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="backend/Senet.Api/Senet.Api.csproj" />
+  <Project Path="backend/Senet.Application/Senet.Application.csproj" />
+  <Project Path="backend/Senet.Contracts/Senet.Contracts.csproj" />
+  <Project Path="backend/Senet.Tests/Senet.Tests.csproj" />
+  <Project Path="senet.client/senet.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+</Solution>

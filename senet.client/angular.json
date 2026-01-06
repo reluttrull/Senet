@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "senet-client": {
+    "senet.client": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -28,8 +28,8 @@
               "src/custom-theme.scss",
               "src/styles.css"
             ],
-            "baseHref": "/senet-client/",
-            "outputPath": "docs"
+            "baseHref": "/Senet/",
+            "outputPath": "docs/browser"
           },
           "configurations": {
             "production": {
@@ -51,6 +51,7 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
+              "baseHref": "/Senet/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -65,10 +66,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "senet-client:build:production"
+              "buildTarget": "senet.client:build:production"
             },
             "development": {
-              "buildTarget": "senet-client:build:development"
+              "buildTarget": "senet.client:build:development"
             }
           },
           "defaultConfiguration": "development"

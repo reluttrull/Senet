@@ -1,9 +1,11 @@
-# Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
 on:
   push:
     branches: ["main"]
+    paths:
+      - "senet.client/**"
+      - ".github/workflows/deploy-pages.yml"
 
   workflow_dispatch:
 
@@ -30,16 +32,19 @@ jobs:
         with:
           node-version: lts/*
           cache: 'npm'
+          cache-dependency-path: 'senet.client/package-lock.json'
       - name: Install dependencies
         run: npm ci
+        working-directory: ./senet.client
       - name: Build
         run: npm run build
+        working-directory: ./senet.client
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './docs/browser'
+          path: './senet.client/docs/browser'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
